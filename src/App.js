@@ -16,6 +16,7 @@ function App() {
   const [todos, setTodos] = useState(initialTodos);
   const [message, setMessage] = useState("");
   const [filter, setFilter] = useState("");
+  const [pointerPos, setPointerPos] = useState({ x: 0, y: 0 });
 
   function handleAddTodo(title, content) {
     const newTodo = { id: nextIndex++, title: title, content: content };
@@ -48,8 +49,13 @@ function App() {
     );
   }
 
+  function handlePointerMove(e) {
+    setPointerPos({ x: e.clientX, y: e.clientY });
+  }
+
   return (
-    <div className="App">
+    <div className="App dot-container" onPointerMove={handlePointerMove}>
+      <Dot position={pointerPos} />
       <Header message={message} />
       <ToolBar onAddTodo={handleAddTodo} onSearchTodo={handleSearchTodo} />
       <TodoList list={todos} filter={filter} onDeleteTodo={handleDeleteTodo} />
@@ -58,6 +64,15 @@ function App() {
 }
 
 export default App;
+
+function Dot({ position }) {
+  return (
+    <div
+      className="dot"
+      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+    ></div>
+  );
+}
 
 function Header({ message }) {
   return (
@@ -133,7 +148,7 @@ function AddTodo({ onAddTodo }) {
 }
 
 function TodoList({ list, filter, onDeleteTodo }) {
-  let listOfTodo = list
+  list = list
     .filter((todo) => {
       return (
         todo.title.toLowerCase().includes(filter.toLowerCase()) ||
@@ -143,17 +158,7 @@ function TodoList({ list, filter, onDeleteTodo }) {
     .map((element) => {
       return <Todo key={element.id} todo={element} onDelete={onDeleteTodo} />;
     });
-  return (
-    <>
-      {/* <h2
-        className="todolist-title"
-        onMouseOver={(e) => style(e.target)}
-      >
-        List :
-      </h2> */}
-      <ul className="todolist">{listOfTodo}</ul>
-    </>
-  );
+  return <ul className="todolist">{list}</ul>;
 }
 
 function Todo({ todo, onDelete }) {

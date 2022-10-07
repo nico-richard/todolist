@@ -38,22 +38,28 @@ body {
 }
 
 .search-todo {
-  background-color: var(--color2);
-  padding: 10px;
-  /* border: 1px solid black; */
-  border-top: none;
   border-left: none;
-  flex-basis: 50%;
 }
 
 .add-todo {
-  background-color: var(--color3);
-  padding: 10px;
-  /* border: 1px solid black; */
-  border-top: none;
-  flex-basis: 50%;
   display: flex;
   flex-direction: column;
+}
+
+.add-todo,
+.search-todo {
+  background-color: var(--color2);
+  flex-basis: 50%;
+  border: 5px solid var(--color4);
+  border-radius: 0px 0px 10px 10px;
+  border-top: none;
+  margin: 0 10px;
+  padding: 0px 50px;
+  padding-bottom: 10px;
+}
+
+#user-input {
+  width: auto;
 }
 
 .add-todo button {
@@ -81,13 +87,18 @@ body {
   margin: 5px;
 }
 
-.todo:nth-child(even) {
-  background-color: #fff;
+.todo {
+  border: 1px var(--color4) solid;
+  margin: 5px 0;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+/* .todo:nth-child(even) {
 }
 
 .todo:nth-child(odd) {
-  background-color: #eee;
-}
+} */
 
 .todo {
   padding: 10px;
@@ -95,6 +106,22 @@ body {
 
 .todo-title {
   margin: 0;
+}
+
+.dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+  top: -5px;
+  left: -5px;
+}
+
+.dot-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 }
 
 .App-logo {
